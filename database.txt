@@ -6,3 +6,15 @@ create table user (
 );
 
 alter table user add column firstName varchar(30)
+
+ 
+
+create table ingredients(
+	ingredientsId int primary key auto_increment,
+	name varchar(50),
+	description varchar(100),
+	effects varchar(200),
+	source varchar(200),
+	active integer,
+	notConsumeBy varchar(250)
+);

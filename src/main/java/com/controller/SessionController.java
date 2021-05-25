@@ -1,7 +1,10 @@
 package com.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,17 +38,19 @@ public class SessionController {
 	}
 
 	@PostMapping("authenticate")
-	public String authenticate(@RequestParam("email") String email, @RequestParam("password") String password) {
+	public String authenticate(@RequestParam("email") String email, @RequestParam("password") String password,Model model,HttpSession session) {
 		UserBean user = userDao.authenticate(email, password);
 		if (user == null) {
 			//invalid credentials...
+			model.addAttribute("msg","<font color='red'>Invalid Credentials</font>");
 			return "Login";
 		} else {
 
+			session.setAttribute("user", user);
 			if (user.getRole() == UserBean.Role.USER.getRole()) {
-				return "userhome";
+				return "UserHome";
 			} else if (user.getRole() == UserBean.Role.ADMIN.getRole()) {
-				return "admindashboard";
+				return "AdminDashboard";
 			} else {
 				return "Login";
 				//mail 
