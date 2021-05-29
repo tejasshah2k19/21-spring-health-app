@@ -8,19 +8,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
+	<jsp:include page="adminLayout/AdminMenu.jsp"></jsp:include>
 
 
-<s:form action="saveingredient" modelAttribute="ingredient">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
 
-	Name: <s:input path="name"/><s:errors path="name"></s:errors><br>
-	Description: <s:textarea path="description"/><s:errors path="description"></s:errors>
-	<Br>
-	Effects:<s:textarea path="effects"/><s:errors path="effects"></s:errors>
-	<br>
-	Source:<s:textarea path="source"/><br>
-	NotConsumeBy: <s:textarea path="notConsumeBy"/><br>
-	
-	<input type="submit" value="Save">
-</s:form>
+				<s:form action="saveingredient" modelAttribute="ingredient">
+
+	Name: <s:input path="name" />
+					<s:errors path="name"></s:errors>
+					<br>
+	Description: <s:textarea path="description" />
+					<s:errors path="description"></s:errors>
+					<Br>
+	Effects:<s:textarea path="effects" />
+					<s:errors path="effects"></s:errors>
+					<br>
+	Source:<s:textarea path="source" />
+					<br>
+	NotConsumeBy: <s:textarea path="notConsumeBy" />
+					<br>
+
+					<input type="submit" value="Save">
+				</s:form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

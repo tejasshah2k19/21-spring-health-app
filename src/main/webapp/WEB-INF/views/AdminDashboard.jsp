@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="newingredient">New Ingredient</a>
+	<jsp:include page="adminLayout/AdminMenu.jsp"></jsp:include>
+
 </body>
 </html>
