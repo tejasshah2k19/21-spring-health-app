@@ -1,14 +1,18 @@
 package com.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bean.LoginBean;
 import com.bean.UserBean;
 import com.dao.UserDao;
 
@@ -19,8 +23,8 @@ public class SessionController {
 	UserDao userDao;
 
 	@GetMapping("/login")
-	public String login() {
-
+	public String login(Model model) {
+		model.addAttribute("login", new LoginBean());
 		return "Login";
 	}
 
@@ -38,11 +42,17 @@ public class SessionController {
 	}
 
 	@PostMapping("authenticate")
-	public String authenticate(@RequestParam("email") String email, @RequestParam("password") String password,Model model,HttpSession session) {
-		UserBean user = userDao.authenticate(email, password);
+	public String authenticate(@ModelAttribute("login") @Valid LoginBean login,BindingResult result ,Model model, HttpSession session) {
+		UserBean user = userDao.authenticate(login.getEmail(), login.getPassword());
+	
+		model.addAttribute("login",login);
+		if(result.hasErrors())
+		{
+			return "Login";
+		}
 		if (user == null) {
-			//invalid credentials...
-			model.addAttribute("msg","<font color='red'>Invalid Credentials</font>");
+			// invalid credentials...
+			model.addAttribute("msg", "<font color='red'>Invalid Credentials</font>");
 			return "Login";
 		} else {
 
@@ -53,9 +63,15 @@ public class SessionController {
 				return "AdminDashboard";
 			} else {
 				return "Login";
-				//mail 
+				// mail
 			}
 		}
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login";
 	}
 
 }

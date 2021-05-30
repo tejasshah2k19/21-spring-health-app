@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bean.IngredientsBean;
 import com.bean.UserBean;
@@ -45,14 +46,26 @@ public class IngredientsController {
 		List<IngredientsBean> allIngredients = ingredientsDao.getAllIngredients();
 		model.addAttribute("allIngredients", allIngredients);
 		return "ListIngredients";
-	}
+	}    
 
 	@GetMapping("/deleteingredients/{id}")
 	public String deleteIngredients(@PathVariable("id") int id) {
 
 		ingredientsDao.deleteIngredientById(id);
-		
+
 		return "redirect:/getallingredients";
+	}
+
+	@GetMapping("/searchingredients")   
+	public String searchIngredients() {
+		return "SearchIngredients";
+	}
+
+	@PostMapping("/searchingredientsbyname")
+	public String searchIngredientsByName(@RequestParam("search") String name, Model model) {
+		List<IngredientsBean> allIngredients = ingredientsDao.searchIngredientsByName(name);
+		model.addAttribute("allIngredients", allIngredients);
+		return "SearchIngredients";
 	}
 
 }

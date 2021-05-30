@@ -13,10 +13,15 @@
 				Ingredients</a></li>
 		<li class="nav-item"><a class="nav-link" href="getallingredients">List
 				Ingredients</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+		<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+		<li class="nav-item"><a class="nav-link" href="searchingredients">SearchIngredients</a></li>
+		
 	</ul>
 
 </nav>
+
+<div class="mb-1">
+</div>
 
 
 

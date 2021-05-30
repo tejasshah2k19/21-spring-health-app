@@ -31,9 +31,17 @@ public class IngredientsDao {
 		return allIngredients;
 	}
 
-	
 	public void deleteIngredientById(int id) {
-		stmt.update("delete from ingredients where ingredientsId  = "+id);
-		
+		stmt.update("delete from ingredients where ingredientsId  = " + id);
+
 	}
+
+	public List<IngredientsBean> searchIngredientsByName(String name) {
+		name = name+"%";
+		List<IngredientsBean> allIngredients = stmt.query("select * from ingredients where name like ?",
+				new Object[] {name},new BeanPropertyRowMapper<IngredientsBean>(IngredientsBean.class));
+
+		return allIngredients;
+	}
+
 }
