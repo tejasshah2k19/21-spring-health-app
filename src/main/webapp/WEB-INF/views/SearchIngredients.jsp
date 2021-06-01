@@ -6,7 +6,34 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script>
+	function search1() {
+		var data = document.form.search.value;
+		console.log(data);
 
+		var http = new XMLHttpRequest();
+		var url = 'searchingredientsbynamejson';
+		var params = 'search='+data;
+		http.open('POST', url, true);
+
+		//Send the proper header information along with the request
+		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+		http.onreadystatechange = function() {//Call a function when the state changes.
+		    if(http.readyState == 4 && http.status == 200) {
+		        console.log(http.responseText);
+		        console.log(http.responseText[0]);
+		        //json 
+		        //loop 
+		        
+		        
+		    	
+		    }
+		}
+		http.send(params);
+
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="adminLayout/AdminMenu.jsp"></jsp:include>
@@ -16,9 +43,9 @@
 
 		<div class="row">
 			<div class="col-md-6">
-				<form action="searchingredientsbyname" method="post">
-					Search : <input type="text" name="search" />
-					<input type="submit" value="search"/>
+				<form action="searchingredientsbyname" name="form" method="post">
+					Search : <input type="text" name="search" onkeyup="search1()" /> <input
+						type="submit" value="search" />
 				</form>
 			</div>
 		</div>
