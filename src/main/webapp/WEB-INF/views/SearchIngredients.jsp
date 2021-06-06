@@ -26,8 +26,39 @@
 		        //json 
 		        //loop 
 		        //
+		        var tab = document.getElementById("mytable");
+		        var totalRows = tab.rows.length;
+		        for(let i=totalRows-1;i>=1;i--){
+		        	tab.deleteRow(i);
+		        }
+				
+		        //convert string data to json 
+		        var jsonData = JSON.parse(http.responseText);
+		        console.log(jsonData);
+		        //console.log(jsonData[0]);
 		        
-		    	
+		        for(let i=0;i<jsonData.length;i++){
+		        	console.log(jsonData[i]);
+		        	var sd = jsonData[i]
+		        	console.log(sd.name);
+					r = tab.insertRow(i+1);	
+					c1 = r.insertCell(0);
+					c2= r.insertCell(1);
+					c3= r.insertCell(2);
+					c4= r.insertCell(3);
+					c5= r.insertCell(4);
+					c1.innerHTML = sd.ingredientsId;
+					c2.innerHTML = sd.name;
+					c3.innerHTML = sd.source;
+					c4.innerHTML = sd.active;
+					c5.innerHTML = '<a href=#>Edit</a> | <a href=deleteingredients/'+sd.ingredientsId+' > delete </a>';
+					
+		        }
+		        
+		        //		        
+				   	
+		        
+		        
 		    }
 		}
 		http.send(params);
@@ -53,7 +84,7 @@
 		<div class="row">
 			<div class="col-md-6">
 
-				<table class="table table-hover">
+				<table id="mytable" class="table table-hover">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -64,7 +95,7 @@
 						</tr>
 					</thead>
 
-					<tbody>
+					<tbody id="tbody">
 
 						<c:forEach items="${allIngredients}" var="in">
 							<tr>

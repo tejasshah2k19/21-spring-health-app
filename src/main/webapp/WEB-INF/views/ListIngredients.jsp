@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-md-6">
 
-				<table class="table table-hover">
+				<table class="table table-hover" id="mydttbl">
 					<thead>
 						<tr>
 							<th>Id</th>
