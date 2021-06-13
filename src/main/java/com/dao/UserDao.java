@@ -1,5 +1,7 @@
 package com.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,15 @@ public class UserDao {
 	@Autowired
 	JdbcTemplate stmt;
 
+	public List<UserBean> getAllUsers() {
+		// user
+
+		List<UserBean> users = stmt.query("select * from user", new BeanPropertyRowMapper<UserBean>(UserBean.class));
+
+		return users;
+
+	}
+
 	public void saveUser(UserBean user) {
 		stmt.update("insert into user (firstName,email,password,role) values (?,?,?,?) ", user.getFirstName(),
 				user.getEmail(), user.getPassword(), user.getRole());
@@ -20,11 +31,11 @@ public class UserDao {
 
 	public UserBean authenticate(String email, String password) {
 		try {
-		UserBean user = stmt.queryForObject("select * from user where email = ? and password = ?", new Object[] { email, password },
-				new BeanPropertyRowMapper<UserBean>(UserBean.class));
-		
+			UserBean user = stmt.queryForObject("select * from user where email = ? and password = ?",
+					new Object[] { email, password }, new BeanPropertyRowMapper<UserBean>(UserBean.class));
+
 			return user;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

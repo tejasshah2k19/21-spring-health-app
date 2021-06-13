@@ -60,7 +60,7 @@ public class SessionController {
 			if (user.getRole() == UserBean.Role.USER.getRole()) {
 				return "UserHome";
 			} else if (user.getRole() == UserBean.Role.ADMIN.getRole()) {
-				return "AdminDashboard";
+				return "redirect:/dashboard";
 			} else {
 				return "Login";
 				// mail
